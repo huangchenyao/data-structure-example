@@ -30,6 +30,7 @@ protected:
     Rank partition(Rank lo, Rank hi); // 轴点构造算法
     void quickSort(Rank lo, Rank hi); // 快速排序算法
     void heapSort(Rank lo, Rank hi); // 堆排序
+    void swap(T &a, T &b);
 
 public:
     // 构造函数
@@ -52,9 +53,7 @@ public:
     int disordered() const; // 判断向量是否已排序
     Rank find(T const &e) const { return find(e, 0, _size); } // 无序向量整体查找
     Rank find(T const &e, Rank lo, Rank hi) const; // 无序向量区间查找
-    Rank search(T const &e) const // 有序向量整体查找
-    { return (0 >= _size) ? -1 : search(e, 0, _size); }
-
+    Rank search(T const &e) const { return (0 >= _size) ? -1 : search(e, 0, _size); } // 有序向量整体查找
     Rank search(T const &e, Rank lo, Rank hi) const; // 有序向量区间查找
 
     // 可写访问接口
