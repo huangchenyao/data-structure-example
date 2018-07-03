@@ -3,4 +3,4 @@ project(Data_Structure)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Data_Structure main.cpp Vector.cpp Vector.h Math/Fib.cpp Math/Fib.h)
+add_executable(Data_Structure main.cpp Vector.cpp Vector.h fibonacci/Fib.cpp fibonacci/Fib.h)

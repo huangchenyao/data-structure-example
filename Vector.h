@@ -55,6 +55,8 @@ public:
     Rank find(T const &e, Rank lo, Rank hi) const; // 无序向量区间查找
     Rank search(T const &e) const { return (0 >= _size) ? -1 : search(e, 0, _size); } // 有序向量整体查找
     Rank search(T const &e, Rank lo, Rank hi) const; // 有序向量区间查找
+    static Rank binSearch(T* A, T const &e, Rank lo, Rank hi); // 二分查找
+    static Rank fibSearch(T* A, T const &e, Rank lo, Rank hi); // 斐波那契查找
 
     // 可写访问接口
     T &operator[](Rank r) const; // 重载下标操作符，可以类似于数组形式引用各元素

@@ -4,6 +4,7 @@
 
 #include <cstdlib>
 #include "Vector.h"
+#include "fibonacci/Fib.h"
 
 template<typename T>
 void Vector<T>::copyFrom(T const *A, Rank lo, Rank hi) {
@@ -110,7 +111,35 @@ Rank Vector<T>::find(const T &e, Rank lo, Rank hi) const {
 
 template<typename T>
 Rank Vector<T>::search(const T &e, Rank lo, Rank hi) const {
-    return 0;
+    return rand() % 2 ? binSearch(_elem, e, lo, hi) : fibSearch(_elem, e, lo, hi);
+}
+
+template<typename T>
+Rank Vector<T>::binSearch(T *A, const T &e, Rank lo, Rank hi) {
+    while (lo < hi) {
+        Rank mi = (hi + lo) >> 1;
+        e < A[mi] ? hi = mi : lo = mi + 1;
+    }
+    return --lo;
+}
+
+template<typename T>
+Rank Vector<T>::fibSearch(T *A, const T &e, Rank lo, Rank hi) {
+    Fib fib(hi - lo);
+    while (lo < hi) {
+        while (hi - lo < fib.get()) {
+            fib.prev();
+        }
+        Rank mi = lo + fib.get() - 1;
+        if (e < A[mi]) {
+            hi = mi - 1;
+        } else if (e > A[mi]) {
+            lo = mi + 1;
+        } else {
+            return mi;
+        }
+    }
+    return -1;
 }
 
 template<typename T>
@@ -184,7 +213,7 @@ template<typename T>
 int Vector<T>::uniquify() {
     Rank i = 0, j = 0;
     while (++j < _size) {
-        if(_elem[i] != _elem[j]) {
+        if (_elem[i] != _elem[j]) {
             _elem[++i] = _elem[j];
         }
     }
