@@ -49,12 +49,19 @@ void Vector<T>::shrink() {
 
 template<typename T>
 bool Vector<T>::bubble(Rank lo, Rank hi) {
-    return false;
+    bool sorted = true;
+    while (++lo < hi) {
+        if (_elem[lo - 1] > _elem[lo]) {
+            sorted = false;
+            swap(_elem[lo - 1], _elem[lo]);
+        }
+    }
+    return sorted;
 }
 
 template<typename T>
 void Vector<T>::bubbleSort(Rank lo, Rank hi) {
-
+    while (!bubble(lo, hi--));
 }
 
 template<typename T>
@@ -69,12 +76,34 @@ void Vector<T>::selectionSort(Rank lo, Rank hi) {
 
 template<typename T>
 void Vector<T>::merge(Rank lo, Rank mi, Rank hi) {
-
+    T *A = _elem + lo;
+    int lb = mi - lo;
+    T *B = new T[lb];
+    for (Rank i = 0; i < lb; ++i) {
+        B[i] = A[i];
+    }
+    int lc = hi - mi;
+    T *C = _elem + mi;
+    for (Rank i = 0, j = 0, k = 0; j < lb || k < lc;) {
+        if ((j < lb) && (k >= lc || B[j] <= C[k])) {
+            A[i++] = B[j++];
+        }
+        if ((k < lc) && (j >= lb || B[j] > C[k])) {
+            A[i++] = C[k++];
+        }
+    }
+    delete[] B;
 }
 
 template<typename T>
 void Vector<T>::mergeSort(Rank lo, Rank hi) {
-
+    if (hi - lo < 2) {
+        return;
+    }
+    Rank mi = (hi + lo) >> 1;
+    mergeSort(lo, mi);
+    mergeSort(mi, hi);
+    merge(lo, mi, hi);
 }
 
 template<typename T>
@@ -188,7 +217,23 @@ Rank Vector<T>::insert(Rank r, const T &e) {
 
 template<typename T>
 void Vector<T>::sort(Rank lo, Rank hi) {
-
+    switch (rand() % 5) {
+        case 0:
+            bubbleSort(lo, hi);
+            break;
+        case 1:
+            selectionSort(lo, hi);
+            break;
+        case 2:
+            mergeSort(lo, hi);
+            break;
+        case 3:
+            heapSort(lo, hi);
+            break;
+        case 4:
+            quickSort(lo, hi);
+            break;
+    }
 }
 
 template<typename T>
