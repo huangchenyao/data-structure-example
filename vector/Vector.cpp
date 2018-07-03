@@ -4,7 +4,7 @@
 
 #include <cstdlib>
 #include "Vector.h"
-#include "fibonacci/Fib.h"
+#include "../fibonacci/Fib.h"
 
 template<typename T>
 void Vector<T>::copyFrom(T const *A, Rank lo, Rank hi) {
