@@ -1,5 +1,5 @@
 //
-// Created by 黄琛垚 on 2018/6/28.
+// Created by 黄琛垚 on 2018/7/4.
 //
 
 #include <cstdlib>
@@ -122,6 +122,13 @@ void Vector<T>::heapSort(Rank lo, Rank hi) {
 }
 
 template<typename T>
+void Vector<T>::swap(T &a, T &b) {
+    T tmp = a;
+    a = b;
+    b = tmp;
+}
+
+template<typename T>
 int Vector<T>::disordered() const {
     int n = 0;
     for (int i = 1; i < _size; ++i) {
@@ -143,8 +150,9 @@ Rank Vector<T>::search(const T &e, Rank lo, Rank hi) const {
     return rand() % 2 ? binSearch(_elem, e, lo, hi) : fibSearch(_elem, e, lo, hi);
 }
 
+
 template<typename T>
-Rank Vector<T>::binSearch(T *A, const T &e, Rank lo, Rank hi) {
+Rank Vector<T>::binSearch(T *A, const T &e, Rank lo, Rank hi) const {
     while (lo < hi) {
         Rank mi = (hi + lo) >> 1;
         e < A[mi] ? hi = mi : lo = mi + 1;
@@ -153,7 +161,7 @@ Rank Vector<T>::binSearch(T *A, const T &e, Rank lo, Rank hi) {
 }
 
 template<typename T>
-Rank Vector<T>::fibSearch(T *A, const T &e, Rank lo, Rank hi) {
+Rank Vector<T>::fibSearch(T *A, const T &e, Rank lo, Rank hi) const {
     Fib fib(hi - lo);
     while (lo < hi) {
         while (hi - lo < fib.get()) {
@@ -283,8 +291,6 @@ void Vector<T>::traverse(VST &visit) {
 }
 
 template<typename T>
-void Vector<T>::swap(T &a, T &b) {
-    T tmp = a;
-    a = b;
-    b = tmp;
+int Vector<T>::test() {
+    return 0;
 }
