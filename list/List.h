@@ -84,9 +84,13 @@ int List<T>::clear() {
     return 0;
 }
 
-template<typename T>
-void List<T>::copyNodes(ListNodePosi<T>, int) {
-
+template<typename T> // 列表内部方法：复制列表中自位置p起的n项
+void List<T>::copyNodes(ListNodePosi<T> p, int n) { // p合法，且至少有n-1个真后继节点
+    init();
+    while(n--) {
+        insertAsLast(p->data);
+        p = p->succ;
+    }
 }
 
 template<typename T>
@@ -110,18 +114,18 @@ void List<T>::insertionSort(ListNodePosi<T>, int) {
 }
 
 template<typename T>
-List<T>::List(const List<T> &L) {
-
+List<T>::List(const List<T> &L) { // 整体复制列表L
+    copyNodes(L.first(), L.size());
 }
 
 template<typename T>
-List<T>::List(const List<T> &L, Rank r, int n) {
-
+List<T>::List(const List<T> &L, Rank r, int n) { // 复制L中自第r项起的n项
+    copyNodes(L[r], n);
 }
 
 template<typename T>
-List<T>::List(ListNodePosi<T> p, int n) {
-
+List<T>::List(ListNodePosi<T> p, int n) { // 复制列表中自位置p起的n项
+    copyNodes(p, n);
 }
 
 template<typename T>
