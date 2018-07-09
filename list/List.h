@@ -68,5 +68,161 @@ public:
     void traverse(VST &); // 遍历，依次实施visit操作(函数对象，可全局性修改)
 };
 
+template<typename T>
+void List<T>::init() { // 列表初始化，在创建对象时统一调用
+    header = new ListNode<T>;
+    trailer = new ListNode<T>;
+    header->pred = nullptr;
+    header->succ = trailer;
+    trailer->pred = header;
+    trailer->succ = nullptr;
+    _size = 0;
+}
+
+template<typename T>
+int List<T>::clear() {
+    return 0;
+}
+
+template<typename T>
+void List<T>::copyNodes(ListNodePosi<T>, int) {
+
+}
+
+template<typename T>
+void List<T>::merge(ListNodePosi<T>, int, List<T> &, ListNodePosi<T>, int) {
+
+}
+
+template<typename T>
+void List<T>::mergeSort(ListNodePosi<T> &, int) {
+
+}
+
+template<typename T>
+void List<T>::selectionSort(ListNodePosi<T>, int) {
+
+}
+
+template<typename T>
+void List<T>::insertionSort(ListNodePosi<T>, int) {
+
+}
+
+template<typename T>
+List<T>::List(const List<T> &L) {
+
+}
+
+template<typename T>
+List<T>::List(const List<T> &L, Rank r, int n) {
+
+}
+
+template<typename T>
+List<T>::List(ListNodePosi<T> p, int n) {
+
+}
+
+template<typename T>
+List<T>::~List() {
+
+}
+
+template<typename T>
+T &List<T>::operator[](Rank r) const { //assert: 0 <= r < size
+    ListNodePosi p = first();
+    while (0 < r--) {
+        p = p->succ;
+    }
+    return p->data;
+}
+
+template<typename T>
+int List<T>::disordered() const {
+    return 0;
+}
+
+template<typename T>
+// 在无序列表内节点p(可能是trailer)的n个(真)前驱中，找到等于e的最后者
+ListNodePosi<T> List<T>::find(const T &e, int n, ListNodePosi<T> p) const { // 0<=n<=rank(p)<_size
+    while (0 < n--) {
+        if (e == (p = p->pred)->data) {
+            return p;
+        }
+    }
+    return nullptr;
+}
+
+template<typename T>
+ListNodePosi<T> List<T>::search(const T &e, int n, ListNodePosi<T> p) const {
+    return nullptr;
+}
+
+template<typename T>
+ListNodePosi<T> List<T>::selectMax(ListNodePosi<T> p, int n) {
+    return nullptr;
+}
+
+template<typename T>
+ListNodePosi<T> List<T>::insertAsFirst(const T &e) { // e当作头结点插入
+    ++_size;
+    return header->insertAsPred(e);
+}
+
+template<typename T>
+ListNodePosi<T> List<T>::insertAsLast(const T &e) { // e当作末节点插入
+    ++_size;
+    return trailer->insertAsSucc(e);
+}
+
+template<typename T>
+ListNodePosi<T> List<T>::insertBefore(ListNodePosi<T> p, const T &e) { // e当作p的前驱插入
+    _size++;
+    return p->insertAsPred(e);
+}
+
+template<typename T>
+ListNodePosi<T> List<T>::insertAfter(ListNodePosi<T> p, const T &e) { // e当作p的后继插入
+    ++_size;
+    return p->insertAsSucc(e);
+}
+
+template<typename T>
+T List<T>::remove(ListNodePosi<T> p) {
+    return nullptr;
+}
+
+template<typename T>
+void List<T>::sort(ListNodePosi<T> p, int n) {
+
+}
+
+template<typename T>
+int List<T>::deduplicate() {
+    return 0;
+}
+
+template<typename T>
+int List<T>::uniquify() {
+    return 0;
+}
+
+template<typename T>
+void List<T>::reverse() {
+
+}
+
+template<typename T>
+void List<T>::traverse(void (*)(T &)) {
+
+}
+
+template<typename T>
+template<typename VST>
+void List<T>::traverse(VST &) {
+
+}
+
 
 #endif //DATA_STRUCTURE_LIST_H

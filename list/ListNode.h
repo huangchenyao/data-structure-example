@@ -25,3 +25,19 @@ struct ListNode { // 列表节点模板类(以双向链表形式实现)
 };
 
 #endif //DATA_STRUCTURE_LISTNODE_H
+
+template<typename T>
+ListNodePosi<T> ListNode<T>::insertAsPred(const T &e) {
+    ListNodePosi<T> x = new ListNode(e, pred, this);
+    pred->succ = x;
+    pred = x;
+    return x;
+}
+
+template<typename T>
+ListNodePosi<T> ListNode<T>::insertAsSucc(const T &e) {
+    ListNodePosi<T> x = new ListNode(e, this, succ);
+    succ->pred = x;
+    succ = x;
+    return x;
+}
