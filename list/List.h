@@ -194,7 +194,14 @@ ListNodePosi<T> List<T>::insertAfter(ListNodePosi<T> p, const T &e) { // e当作
 
 template<typename T>
 T List<T>::remove(ListNodePosi<T> p) {
-    return nullptr;
+    T e = p->data;
+    p->pred->succ = p->succ;
+    p->succ->pred = p->pred;
+    p->pred = nullptr;
+    p->succ = nullptr;
+    delete p;
+    --_size;
+    return e;
 }
 
 template<typename T>
