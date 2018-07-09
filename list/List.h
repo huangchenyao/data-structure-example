@@ -81,13 +81,18 @@ void List<T>::init() { // 列表初始化，在创建对象时统一调用
 
 template<typename T>
 int List<T>::clear() {
-    return 0;
+    int oldSize = _size;
+    while (0 < _size) {
+        remove(header->succ);
+    }
+    return oldSize;
 }
 
-template<typename T> // 列表内部方法：复制列表中自位置p起的n项
+template<typename T>
+// 列表内部方法：复制列表中自位置p起的n项
 void List<T>::copyNodes(ListNodePosi<T> p, int n) { // p合法，且至少有n-1个真后继节点
     init();
-    while(n--) {
+    while (n--) {
         insertAsLast(p->data);
         p = p->succ;
     }
@@ -130,7 +135,9 @@ List<T>::List(ListNodePosi<T> p, int n) { // 复制列表中自位置p起的n项
 
 template<typename T>
 List<T>::~List() {
-
+    clear();
+    delete header;
+    delete trailer;
 }
 
 template<typename T>
