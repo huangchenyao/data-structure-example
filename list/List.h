@@ -167,7 +167,12 @@ ListNodePosi<T> List<T>::find(const T &e, int n, ListNodePosi<T> p) const { // 0
 
 template<typename T>
 ListNodePosi<T> List<T>::search(const T &e, int n, ListNodePosi<T> p) const {
-    return nullptr;
+    while (0 <= n--) {
+        if ((p = p->pred)->data <= e) {
+            break;
+        }
+    }
+    return p;
 }
 
 template<typename T>
