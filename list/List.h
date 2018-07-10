@@ -142,7 +142,7 @@ List<T>::~List() {
 
 template<typename T>
 T &List<T>::operator[](Rank r) const { //assert: 0 <= r < size
-    ListNodePosi p = first();
+    ListNodePosi<T> p = first();
     while (0 < r--) {
         p = p->succ;
     }
@@ -218,7 +218,17 @@ void List<T>::sort(ListNodePosi<T> p, int n) {
 
 template<typename T>
 int List<T>::deduplicate() {
-    return 0;
+    if (_size < 2) {
+        return 0;
+    }
+    int oldSize = _size;
+    ListNodePosi<T> p = header;
+    Rank r = 0;
+    while (trailer != (p = p->succ)) {
+        ListNodePosi<T> q = find(p->data, r, p);
+        q ? remove(q) : ++r;
+    }
+    return oldSize - _size;
 }
 
 template<typename T>
