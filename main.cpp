@@ -1,16 +1,15 @@
 #include <iostream>
-#include "vector/Vector.h"
-//#include "fibonacci/Fib.h"
+#include "list/List.h"
 
 int main() {
-    Vector<int> vector;
-    for (int i = 0; i < 2000; ++i) {
-        vector.insert(rand() % 2000);
-    }
-    vector.sort();
-    for (int i = 0; i < 2000; ++i) {
-        std::cout << vector[i] << std::endl;
-    }
-//    std::cout << vector[0] << std::endl;
+    List<int> list;
+    list.insertAsLast(1);
+    list.insertAsLast(2);
+    list.insertAsLast(3);
+    ListNodePosi(int)p = list.find(2);
+    list.insertBefore(p, 4);
+    list.insertAfter(p, 5);
+    list.sort();
+    std::cout << list[0] << std::endl;
     return 0;
 }
