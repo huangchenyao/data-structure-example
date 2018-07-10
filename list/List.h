@@ -20,7 +20,7 @@ protected:
     int clear(); // 清除所有节点
     void copyNodes(ListNodePosi<T>, int); // 复制列表中自位置p起的n项
     void merge(ListNodePosi<T>, int, List<T> &, ListNodePosi<T>, int); // 有序列表区间归并
-    void mergeSort(ListNodePosi<T> &, int); // 对从p开始连续的n个节点归并排序
+    void mergeSort(ListNodePosi<T>, int); // 对从p开始连续的n个节点归并排序
     void selectionSort(ListNodePosi<T>, int); // 对从p开始连续的n个节点选择排序
     void insertionSort(ListNodePosi<T>, int); // 对从p开始连续的n个节点插入排序
 
@@ -100,13 +100,35 @@ void List<T>::copyNodes(ListNodePosi<T> p, int n) { // p合法，且至少有n-1
 }
 
 template<typename T>
-void List<T>::merge(ListNodePosi<T>, int, List<T> &, ListNodePosi<T>, int) {
-
+void List<T>::merge(ListNodePosi<T> p, int n, List<T> &L, ListNodePosi<T> q, int m) {
+    ListNodePosi<T> pp = p->pred;
+    while (0 < m) {
+        if ((0 < n) && (p->data == q->data)) {
+            if (q == (p = p->succ)) {
+                break;
+            }
+            --n;
+        } else {
+            insertBefore(p, L.remove((q = q->succ)->pred));
+            --m;
+        }
+    }
+    p = pp->succ;
 }
 
 template<typename T>
-void List<T>::mergeSort(ListNodePosi<T> &, int n) {
-
+void List<T>::mergeSort(ListNodePosi<T> p, int n) {
+    if (n < 2) {
+        return;
+    }
+    int mid = n >> 1;
+    ListNodePosi<T> q = p;
+    for (int i = 0; i < mid; ++i) {
+        q = q->succ;
+    }
+    mergeSort(p, n);
+    mergeSort(q, n - mid);
+    merge(p, n, *this, q, n - mid);
 }
 
 template<typename T>
