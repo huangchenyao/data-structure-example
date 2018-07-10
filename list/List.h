@@ -233,7 +233,19 @@ int List<T>::deduplicate() {
 
 template<typename T>
 int List<T>::uniquify() {
-    return 0;
+    if (_size < 2) {
+        return 0;
+    }
+    int oldSize = _size;
+    ListNodePosi<T> p;
+    ListNodePosi<T> q;
+    for (p = header, q = p->succ; q != trailer; p = q, q = q->succ) {
+        if (p->data == q->data) {
+            remove(q);
+            q = p;
+        }
+    }
+    return oldSize - _size;
 }
 
 template<typename T>
