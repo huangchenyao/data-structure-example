@@ -5,6 +5,7 @@
 #ifndef DATA_STRUCTURE_LIST_H
 #define DATA_STRUCTURE_LIST_H
 
+#include <cstdlib>
 #include "ListNode.h"
 
 template<typename T>
@@ -104,18 +105,32 @@ void List<T>::merge(ListNodePosi<T>, int, List<T> &, ListNodePosi<T>, int) {
 }
 
 template<typename T>
-void List<T>::mergeSort(ListNodePosi<T> &, int) {
+void List<T>::mergeSort(ListNodePosi<T> &, int n) {
 
 }
 
 template<typename T>
-void List<T>::selectionSort(ListNodePosi<T>, int) {
+void List<T>::selectionSort(ListNodePosi<T> p, int n) {
+    ListNodePosi<T> head = p->pred;
+    ListNodePosi<T> tail = p;
+    for (int r = 0; r < n; ++r) {
+        tail = tail->succ;
+    }
+    while (1 < n) {
+        ListNodePosi<T> max = selectMax(head->succ, n);
+        insertBefore(tail, remove(max));
+        --n;
+    }
 
 }
 
 template<typename T>
-void List<T>::insertionSort(ListNodePosi<T>, int) {
-
+void List<T>::insertionSort(ListNodePosi<T> p, int n) {
+    for (int r = 0; r < n; ++r) {
+        insertAfter(search(p->data, r, p), p->data);
+        p = p->succ;
+        remove(p->pred);
+    }
 }
 
 template<typename T>
@@ -177,7 +192,13 @@ ListNodePosi<T> List<T>::search(const T &e, int n, ListNodePosi<T> p) const {
 
 template<typename T>
 ListNodePosi<T> List<T>::selectMax(ListNodePosi<T> p, int n) {
-    return nullptr;
+    ListNodePosi<T> max = p;
+    for (ListNodePosi<T> cur = p; 1 < n; --n) {
+        if ((cur = cur->succ)->data >= max->data) {
+            max = cur;
+        }
+    }
+    return max;
 }
 
 template<typename T>
@@ -218,7 +239,17 @@ T List<T>::remove(ListNodePosi<T> p) {
 
 template<typename T>
 void List<T>::sort(ListNodePosi<T> p, int n) {
-
+    switch (rand() % 3) {
+        case 0:
+            insertionSort(p, n);
+            break;
+        case 1:
+            selectionSort(p, n);
+            break;
+        default:
+            mergeSort(p, n);
+            break;
+    }
 }
 
 template<typename T>
