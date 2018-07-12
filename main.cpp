@@ -1,15 +1,12 @@
 #include <iostream>
-#include "list/List.h"
+#include "stack/Stack.h"
+#include "stack/StackUse.h"
 
 int main() {
-    List<int> list;
-    list.insertAsLast(1);
-    list.insertAsLast(2);
-    list.insertAsLast(3);
-    ListNodePosi(int)p = list.find(2);
-    list.insertBefore(p, 4);
-    list.insertAfter(p, 5);
-    list.sort();
-    std::cout << list[0] << std::endl;
+    StackUse stackUse;
+    Stack<char> stack;
+//    Vector<char> vector;
+    stackUse.convert(stack, 16, 16);
+    std::cout << stack[1] << std::endl;
     return 0;
 }
