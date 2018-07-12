@@ -6,6 +6,7 @@
 #define DATA_STRUCTURE_VECTOR_H
 
 #include "../fibonacci/Fib.h"
+#include <cstdlib>
 
 typedef int Rank;
 #define DEFAULT_CAPACITY 3
