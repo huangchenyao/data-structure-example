@@ -7,6 +7,9 @@ int main() {
     Stack<char> stack;
 //    Vector<char> vector;
     stackUse.convert(stack, 16, 16);
-    std::cout << stack[1] << std::endl;
+    const char *string = "1+2+(3+4*5)-6/7";
+    int lo = 0;
+    int hi = 10;
+    std::cout << stackUse.paren(string, lo, hi) << std::endl;
     return 0;
 }
