@@ -284,6 +284,7 @@ int Vector<T>::remove(Rank lo, Rank hi) {
     while (hi < _size) {
         _elem[lo++] = _elem[hi++];
     }
+    _size = Rank(lo);
     shrink();
     return hi - lo;
 }

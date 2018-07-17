@@ -6,10 +6,10 @@ int main() {
     StackUse stackUse;
     Stack<char> stack;
 //    Vector<char> vector;
-    stackUse.convert(stack, 16, 16);
-    const char *string = "1+2+(3+4*5)-6/7";
-    int lo = 0;
-    int hi = 10;
-    std::cout << stackUse.paren(string, lo, hi) << std::endl;
+//    vector.insert('(');
+    const char *string = "2*(3+4)-6/7";
+    std::cout << stackUse.paren(string) << std::endl;
+//    vector.remove(0);
+//    std::cout << vector.size() << std::endl;
     return 0;
 }
