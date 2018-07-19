@@ -47,7 +47,6 @@ private:
     void readNumber(char *&p, Stack<float> &stk);
 
     void append(char *&RPN, float opnd);
-
     void append(char *&RPN, char optr);
 
     Operator optr2rank(char op);

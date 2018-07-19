@@ -84,17 +84,18 @@ float StackUse::evaluate(char *S, char *&RPN) { // 对(已剔除白空格的)表
                     optr.pop();
                     S++; // 脱括号并接收下一个字符
                     break;
-                case '>': //栈顶运算符优先级更高时，可实施相应的计算，并将结果重新入栈
+                case '>': {//栈顶运算符优先级更高时，可实施相应的计算，并将结果重新入栈
                     char op = optr.pop();
                     append(RPN, op); // 栈顶运算符出栈并续接至RPN末尾
                     if ('!' == op) { // 若属亍一元运算符
                         float pOpnd = opnd.pop(); //只需取出一个操作数，并
-                        opnd.push(calcu(op, pOpnd)); // 实施一元计算，结果入栈
+//                        opnd.push(calcu(op, pOpnd)); // 实施一元计算，结果入栈
                     } else { // 对于其它(二元)运算符
                         float pOpnd2 = opnd.pop(), pOpnd1 = opnd.pop(); // 取出后、前操作数
-                        opnd.push(calcu(pOpnd1, op, pOpnd2)); // 实施二元计算，结果入栈
+//                        opnd.push(calcu(pOpnd1, op, pOpnd2)); // 实施二元计算，结果入栈
                     }
                     break;
+                }
                 default:
                     exit(-1); // 逢语法错误，不做处理直接退出
             }
@@ -152,9 +153,8 @@ void StackUse::append(char *&RPN, float opnd) { // 将操作数接至RPN末尾
     } else { // 整数格式
         sprintf(buf, "%d \0", (int) opnd);
     }
-    RPN = (char *) realloc(RPN, sizeof(char) * (n + strlen(buf) + 1)); // 扩展空间
+    RPN = (char *) realloc(RPN, sizeof(char) * (n + (int)strlen(buf) + 1)); // 扩展空间
     strcat(RPN, buf); // RPN加长
-
 }
 
 void StackUse::append(char *&RPN, char optr) { // 将运算符接至RPN末尾
