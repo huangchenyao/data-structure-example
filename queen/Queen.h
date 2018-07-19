@@ -23,10 +23,11 @@ struct Queen {//皇后类
     }
 };
 
-int nCheck = 0;
-int nSolu = 0;
 
-void placeQueens(int N) {//N皇后算法(迭代版):采用试探/回溯的策略，借助栈记录查找的结果
+
+int placeQueens(int N) {//N皇后算法(迭代版):采用试探/回溯的策略，借助栈记录查找的结果
+    int nCheck = 0;
+    int nSolu = 0;
     Stack<Queen> solu; //存放(部分)解的栈
     Queen q(0, 0); //从原点位置除法
     do { //反复试探、回溯
@@ -46,6 +47,7 @@ void placeQueens(int N) {//N皇后算法(迭代版):采用试探/回溯的策略
             }
         }
     } while ((0 < q.x) || (q.y < N));
+    return nSolu;
 }
 
 #endif //DATA_STRUCTURE_QUEEN_H
